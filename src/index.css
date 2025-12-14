@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* 🌿 Icono calendario estilo Matrix (más grande) */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  transform: scale(1.35);          /* 👈 tamaño del icono */
+  margin-left: 4px;
+  filter: invert(1) sepia(1) saturate(6) hue-rotate(90deg)
+          drop-shadow(0 0 6px #10b981)
+          drop-shadow(0 0 12px rgba(16,185,129,0.6));
+  opacity: 1;
+  cursor: pointer;
+}
