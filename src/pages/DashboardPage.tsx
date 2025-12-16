@@ -78,10 +78,20 @@ function getEmpresaIdFromAuth(): number | null {
   }
 }
 
-// helper para formatear fecha/hora
+function parseIsoSmart(iso: string): Date {
+  if (!iso) return new Date(NaN);
+
+  // si ya viene con Z o con offset +05:00 / -05:00, lo dejamos
+  const hasTz = /Z$|[+-]\d{2}:\d{2}$/.test(iso);
+
+  // si NO trae zona horaria, asumimos que el backend lo manda en UTC
+  return new Date(hasTz ? iso : iso + "Z");
+}
+
+
 function formatFechaHora(iso: string): string {
   if (!iso) return "-";
-  const d = new Date(iso);
+  const d = parseIsoSmart(iso);
   if (isNaN(d.getTime())) return iso;
 
   const dd = String(d.getDate()).padStart(2, "0");
@@ -92,6 +102,7 @@ function formatFechaHora(iso: string): string {
   return `${dd}-${mm}-${yyyy} ${hh}:${min}`;
 }
 
+
 // helper para obtener YYYY-MM-DD local
 function todayLocalYMD(): string {
   const d = new Date();
@@ -101,16 +112,16 @@ function todayLocalYMD(): string {
   return `${yyyy}-${mm}-${dd}`;
 }
 
-// helper para extraer YYYY-MM-DD local desde iso
 function ymdFromIsoLocal(iso: string): string {
   if (!iso) return "";
-  const d = new Date(iso);
+  const d = parseIsoSmart(iso);
   if (isNaN(d.getTime())) return "";
   const yyyy = d.getFullYear();
   const mm = String(d.getMonth() + 1).padStart(2, "0");
   const dd = String(d.getDate()).padStart(2, "0");
   return `${yyyy}-${mm}-${dd}`;
 }
+
 
 export default function DashboardPage() {
   const [movs, setMovs] = useState<Movimiento[]>([]);
