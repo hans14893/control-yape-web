@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Navigate } from "react-router-dom";
 import api from "../api/apiClient";
+import ThemeToggle from "../components/ThemeToggle";
 
 type Movimiento = {
   id: number;
@@ -205,6 +206,7 @@ export default function DashboardPage() {
 
           <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
             {/* ✅ Actualizar verde */}
+            <ThemeToggle />
             <button
               className="text-xs px-3 py-2 sm:py-1 rounded-lg border border-emerald-600 text-emerald-300 hover:bg-emerald-600/10 transition flex-1 sm:flex-none"
               onClick={fetchMovs}
