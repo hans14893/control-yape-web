@@ -166,25 +166,31 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 flex flex-col">
       {/* Top bar */}
-      <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 sm:px-6 py-4 border-b border-slate-800 bg-slate-950/60 gap-4 sm:gap-3">
+      <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 sm:px-6 py-4 gap-4 sm:gap-3
+      border-b border-slate-200 bg-white
+      dark:border-slate-800 dark:bg-slate-950/60">
         <h1 className="text-lg sm:text-xl font-semibold">
           Control Yape{" "}
-          <span className="text-xs text-slate-400">· {empresaNombre}</span>
+          <span className="text-xs text-slate-500 dark:text-slate-400">
+            · {empresaNombre}
+          </span>
         </h1>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 w-full sm:w-auto">
           {/* ✅ Filtro por día */}
           <div
             className="
-    flex items-center gap-2 px-3 py-2 rounded-xl
-    bg-black/60 border border-emerald-500/30
-    shadow-[0_0_12px_rgba(16,185,129,0.35)]
-    w-full sm:w-auto
-  "
+            flex items-center gap-2 px-3 py-2 rounded-xl
+            bg-slate-100 border border-emerald-500/30
+            shadow-[0_0_12px_rgba(16,185,129,0.18)]
+            dark:bg-black/60 dark:border-emerald-500/30
+            dark:shadow-[0_0_12px_rgba(16,185,129,0.35)]
+            w-full sm:w-auto
+          "
           >
-            <span className="text-[10px] sm:text-[11px] font-mono tracking-widest text-emerald-400">
+            <span className="text-[10px] sm:text-[11px] font-mono tracking-widest text-emerald-600 dark:text-emerald-400">
               DAY
             </span>
 
@@ -193,24 +199,29 @@ export default function DashboardPage() {
               value={selectedDay}
               onChange={(e) => setSelectedDay(e.target.value)}
               className="
-      bg-black text-emerald-300
-      border border-emerald-500/40
-      rounded-lg px-2 pr-8 py-1 text-xs sm:text-sm font-mono
-      focus:outline-none focus:ring-2 focus:ring-emerald-400/60
-      hover:border-emerald-400
-      shadow-[inset_0_0_8px_rgba(16,185,129,0.25)]
-      transition flex-1 sm:flex-none
-    "
+              bg-white text-emerald-700
+              border border-emerald-500/40
+              rounded-lg px-2 pr-8 py-1 text-xs sm:text-sm font-mono
+              focus:outline-none focus:ring-2 focus:ring-emerald-400/60
+              hover:border-emerald-400
+              shadow-[inset_0_0_8px_rgba(16,185,129,0.15)]
+              transition flex-1 sm:flex-none
+              dark:bg-black dark:text-emerald-300
+              dark:shadow-[inset_0_0_8px_rgba(16,185,129,0.25)]
+            "
             />
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
-            {/* ✅ Actualizar verde */}
+            {/* 🌙☀️ Tema */}
             <div className="flex-none">
               <ThemeToggle />
             </div>
+
+            {/* ✅ Actualizar verde */}
             <button
-              className="text-xs px-3 py-2 sm:py-1 rounded-lg border border-emerald-600 text-emerald-300 hover:bg-emerald-600/10 transition flex-1 sm:flex-none"
+              className="text-xs px-3 py-2 sm:py-1 rounded-lg border border-emerald-600 text-emerald-600 hover:bg-emerald-600/10 transition flex-1 sm:flex-none
+              dark:text-emerald-300"
               onClick={fetchMovs}
             >
               Actualizar
@@ -218,7 +229,8 @@ export default function DashboardPage() {
 
             {/* ✅ Cerrar sesión rojo */}
             <button
-              className="text-xs px-3 py-2 sm:py-1 rounded-lg border border-red-600 text-red-300 hover:bg-red-600/10 transition flex-1 sm:flex-none"
+              className="text-xs px-3 py-2 sm:py-1 rounded-lg border border-red-600 text-red-600 hover:bg-red-600/10 transition flex-1 sm:flex-none
+              dark:text-red-300"
               onClick={() => {
                 localStorage.removeItem("auth");
                 window.location.href = "/";
@@ -234,30 +246,45 @@ export default function DashboardPage() {
       <main className="px-4 sm:px-6 py-6 space-y-6 flex-1 overflow-y-auto">
         {/* Cards resumen */}
         <section className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="rounded-xl border border-slate-800 bg-slate-950/40 p-3 sm:p-4">
-            <p className="text-xs text-slate-400 mb-1">Total Yape (día)</p>
-            <p className="text-xl sm:text-2xl font-bold text-emerald-400">
+          <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4
+          dark:border-slate-800 dark:bg-slate-950/40">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">
+              Total Yape (día)
+            </p>
+            <p className="text-xl sm:text-2xl font-bold text-emerald-600 dark:text-emerald-400">
               S/ {total.toFixed(2)}
             </p>
           </div>
-          <div className="rounded-xl border border-slate-800 bg-slate-950/40 p-3 sm:p-4">
-            <p className="text-xs text-slate-400 mb-1">Número de Yapes (día)</p>
-            <p className="text-xl sm:text-2xl font-bold">{movsFiltrados.length}</p>
+
+          <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4
+          dark:border-slate-800 dark:bg-slate-950/40">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">
+              Número de Yapes (día)
+            </p>
+            <p className="text-xl sm:text-2xl font-bold">
+              {movsFiltrados.length}
+            </p>
           </div>
-          <div className="rounded-xl border border-slate-800 bg-slate-950/40 p-3 sm:p-4">
-            <p className="text-xs text-slate-400 mb-1">Estado</p>
-            <p className="text-sm text-slate-300">
+
+          <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4
+          dark:border-slate-800 dark:bg-slate-950/40">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">
+              Estado
+            </p>
+            <p className="text-sm text-slate-600 dark:text-slate-300">
               {loading ? "Cargando..." : "Actualizado"}
             </p>
           </div>
         </section>
 
         {/* Tabla */}
-        <section className="rounded-xl border border-slate-800 bg-slate-950/40 overflow-hidden">
-          <div className="px-3 sm:px-4 py-3 border-b border-slate-800 flex justify-between items-center">
-            <h2 className="text-xs sm:text-sm font-semibold text-slate-100">
+        <section className="rounded-xl border border-slate-200 bg-white overflow-hidden
+        dark:border-slate-800 dark:bg-slate-950/40">
+          <div className="px-3 sm:px-4 py-3 border-b border-slate-200 flex justify-between items-center
+          dark:border-slate-800">
+            <h2 className="text-xs sm:text-sm font-semibold">
               Movimientos Yape{" "}
-              <span className="text-xs text-slate-400">
+              <span className="text-xs text-slate-500 dark:text-slate-400">
                 ( {selectedDay || "todos"} )
               </span>
             </h2>
@@ -265,7 +292,8 @@ export default function DashboardPage() {
 
           <div className="overflow-x-auto">
             <table className="w-full text-xs sm:text-sm">
-              <thead className="bg-slate-900/60 text-slate-400 hidden md:table-header-group">
+              <thead className="bg-slate-100 text-slate-500 hidden md:table-header-group
+              dark:bg-slate-900/60 dark:text-slate-400">
                 <tr>
                   <th className="px-3 py-2 text-left">Fecha y hora</th>
                   <th className="px-3 py-2 text-left">Cliente</th>
@@ -274,33 +302,41 @@ export default function DashboardPage() {
                   <th className="px-3 py-2 text-left">Estado</th>
                 </tr>
               </thead>
+
               <tbody className="block md:table-row-group">
                 {movsFiltrados.map((m) => (
                   <tr
                     key={m.id}
-                    className="border-t border-slate-800 hover:bg-slate-900/50 block md:table-row mb-4 md:mb-0 rounded-lg md:rounded-none overflow-hidden md:overflow-visible bg-slate-950/60 md:bg-transparent"
+                    className="border-t border-slate-200 hover:bg-slate-50
+                    dark:border-slate-800 dark:hover:bg-slate-900/50
+                    block md:table-row mb-4 md:mb-0 rounded-lg md:rounded-none
+                    overflow-hidden md:overflow-visible
+                    bg-white md:bg-transparent
+                    dark:bg-slate-950/60 md:dark:bg-transparent"
                   >
-                    <td className="px-3 py-2 text-xs text-slate-300 block md:table-cell">
+                    <td className="px-3 py-2 text-xs text-slate-600 dark:text-slate-300 block md:table-cell">
                       {formatFechaHora(m.fechaHora)}
                     </td>
-                    <td className="px-3 py-2 text-xs text-slate-100 block md:table-cell">
+                    <td className="px-3 py-2 text-xs text-slate-900 dark:text-slate-100 block md:table-cell">
                       {m.nombreCliente || "-"}
                     </td>
-                    <td className="px-3 py-2 text-xs text-slate-300 block md:table-cell">
+                    <td className="px-3 py-2 text-xs text-slate-600 dark:text-slate-300 block md:table-cell">
                       {m.yapeCuentaNombre || "Cuenta sin nombre"}{" "}
                       {m.numeroYape && (
-                        <span className="text-slate-400">({m.numeroYape})</span>
+                        <span className="text-slate-500 dark:text-slate-400">
+                          ({m.numeroYape})
+                        </span>
                       )}
                     </td>
-                    <td className="px-3 py-2 text-xs text-right text-emerald-400 block md:table-cell">
+                    <td className="px-3 py-2 text-xs text-right text-emerald-600 dark:text-emerald-400 block md:table-cell">
                       S/ {m.monto?.toFixed(2)}
                     </td>
                     <td className="px-3 py-2 text-xs block md:table-cell">
                       <span
                         className={
                           m.estado === "ANULADO"
-                            ? "text-red-400"
-                            : "text-emerald-400"
+                            ? "text-red-600 dark:text-red-400"
+                            : "text-emerald-600 dark:text-emerald-400"
                         }
                       >
                         {m.estado || "RECIBIDO"}
@@ -326,4 +362,5 @@ export default function DashboardPage() {
       </main>
     </div>
   );
+
 }
