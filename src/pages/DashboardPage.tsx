@@ -148,9 +148,9 @@ export default function DashboardPage() {
     }
   }, [empresaId]);
 
- useEffect(() => {
-  fetchMovs();
-}, [fetchMovs]);
+  useEffect(() => {
+    fetchMovs();
+  }, [fetchMovs]);
 
   // ✅ Movimientos filtrados por día seleccionado
   const movsFiltrados = useMemo(() => {
@@ -206,7 +206,9 @@ export default function DashboardPage() {
 
           <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
             {/* ✅ Actualizar verde */}
-            <ThemeToggle />
+            <div className="flex-none">
+              <ThemeToggle />
+            </div>
             <button
               className="text-xs px-3 py-2 sm:py-1 rounded-lg border border-emerald-600 text-emerald-300 hover:bg-emerald-600/10 transition flex-1 sm:flex-none"
               onClick={fetchMovs}
