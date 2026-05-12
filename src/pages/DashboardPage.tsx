@@ -233,7 +233,7 @@ export default function DashboardPage() {
               dark:text-red-300"
               onClick={() => {
                 localStorage.removeItem("auth");
-                window.location.href = "/";
+                window.location.href = "/login";
               }}
             >
               Cerrar sesión
