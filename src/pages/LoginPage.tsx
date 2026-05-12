@@ -1,14 +1,33 @@
 // src/pages/LoginPage.tsx
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 import api from "../api/apiClient";
 import type { AuthResponse } from "../types/AuthResponse";
 import ThemeToggle from "../components/ThemeToggle";
+
+function getRoleFromStoredAuth(): string | null {
+  try {
+    const raw = localStorage.getItem("auth");
+    if (!raw) return null;
+    const auth = JSON.parse(raw);
+    const token = auth?.token;
+    if (!token || typeof token !== "string") return null;
+    return auth?.rol || auth?.role || auth?.usuario?.rol || auth?.user?.rol || null;
+  } catch {
+    return null;
+  }
+}
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const existingRole = getRoleFromStoredAuth();
+
+  if (existingRole) {
+    return <Navigate to={existingRole === "SUPERADMIN" ? "/superadmin" : "/dashboard"} replace />;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
